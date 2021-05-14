@@ -10,4 +10,10 @@ steps:
 - run: npm run lint
 - run: npm test
 - run: ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP 'cd production; git checkout master; git pull; npm install; npm run start:production;'
-
+workflows:
+build-deploy:
+ jobs:
+   - build:
+       filters:
+         branches:
+           only: master
